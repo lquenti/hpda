@@ -1,0 +1,18 @@
+I chose my comma ai for this one, as they are the coolest company solving the problem of autonomous driving, which is basically the first step of solving AGI. My main source is [1].
+
+Comma ai has embedded devices that are connected to the car bus in order to read the sensor data and move the car accordingly. It also has both a normal and driver camera. The driver camera is used because its still a L2 system[2].
+
+Since they have an e2e system, they can't do much pre-processing on the local device. According to their own head of infrastructure, they get over 500,000 miles a week, which are in the order of 100s of TB a month. This results in the requirement for a fast data processing pipeline since it one has to opt into a shorter retention policy with that amount of data.
+
+After storing the streamed raw data, it gets put into a queue. Then it gets processed by a bunch of VPS, sharded over multiple big cloud providers.
+
+Lets look at the 5Vs:
+
+- Volume: A lot terabytes at all time
+- Velocity: 100TB/month is a lot
+- Variety: Unstructured video, also logs with are probably (hopefully) semistructured.
+- Veracity: Pretty good, although some sensors can be off
+- Value: High value although not very good signal to noise ratio. But the data is hard to get and essential for solving a big commercial problem.
+
+[1]: https://blog.comma.ai/scaling-for-10x-user-growth/
+[2]: https://en.wikipedia.org/wiki/Self-driving_car
