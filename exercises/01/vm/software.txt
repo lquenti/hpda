@@ -1,0 +1,20 @@
+- Haven't used a VM but instead a openstack based VPS with a cloud-init ubu 22 LTS
+- SSH key got automatically deployed via cloud-init cfg
+- But I did standard hardening: SSH only, no default user acc, no root access...
+- I forked hpda-samples[1] to make the scripts more resistant
+
+- At first, I couldn't connect although my security group allowed ingoing 8888 TCP from any IP
+- A curl on localhost worked, so the server worked as well
+- `python3 -m http.server 8888` was accessible externally, so I actually had to config the jupyter...
+- weirdly, `jupyter notebook --ip 0.0.0.0 --port 8888` didnt work either
+- So I generated a config `jupyter notebook --generate-config`
+- Confed it up
+  - `c.NotebookApp.allow_origin = '*'`
+  - `c.NotebookApp.ip = '0.0.0.0'`
+- Still didnt work.
+- I am a idiot, I used the internal private class 2 address... jupyter Works
+
+- Will continue once I got an answer from the supervisors
+
+
+[1]: https://github.com/JulianKunkel/hpda-samples
